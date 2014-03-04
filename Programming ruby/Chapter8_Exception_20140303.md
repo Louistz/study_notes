@@ -1,6 +1,7 @@
 异常、捕获和抛出
 =============
 [Program ruby:第八章]()
+
 类似于 try/catch throw
 在 `begin/end`中，用`rescue`语句告诉ruby希望处理的异常类型。
 	
