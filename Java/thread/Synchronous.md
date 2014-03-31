@@ -169,3 +169,27 @@ java.util.concurrent.atomic包中有很多类使用了很高效的机器级指�
 随机数的生成，如果多个线程共享一个随机数生成器，效率会很低。可以为每个线程提供一个单独的生成器。
 	
 	int random = ThreadLocalRandom.current().nextInt(upperBound);
+
+####读写锁 ReentrantReadWriteLock
+如果很多线程读数据而少数线程修改数据，那么允许对读者线程共享访问时合适，写者线程依然必须是互斥的。使用ReentrantReadWriteLock:  
+1). 构造一个对象：  
+	
+	private ReentrantReadWriteLock rwl = new ReetrantReadWriteLock();
+2). 抽取读锁和写锁：  
+	
+	private Lock readLock = rwl.readLock();
+	private LOck writeLock = rwl.writeLock();
+3). 对所有的获取方法加读锁：  
+	
+	public double getTotalBalance(){
+		readLock.lock();
+		try{...}
+		finally{readlock.unlock();}
+	}
+4). 对所有的修改方法加写锁：  
+	
+	public voidtransfer(...){
+		writeLock.lock();
+		try{...}
+		finally{writeLock.unlock();}
+	}
